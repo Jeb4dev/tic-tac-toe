@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, render_template
-from flask_migrate import Migrate
-from flask_login import LoginManager
+from app.websockets.sockets import socketio
 
 from app import settings
 
@@ -15,6 +14,7 @@ def create_app():
     # init plugins
     # db.init_app(_app)
     # login_manager.init_app(_app)
+    socketio.init_app(_app)
 
     from app.api.resources.home import home
 
@@ -42,4 +42,4 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    socketio.run(app, port=8000, debug=True)
