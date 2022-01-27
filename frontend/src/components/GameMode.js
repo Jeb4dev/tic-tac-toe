@@ -25,7 +25,7 @@ const GameMode = () => (
         className="
         flex justify-center"
       >
-        <Link to="/login">
+        <Link to="/">
           <Button label={<BiArrowBack />} />
         </Link>
       </div>
