@@ -15,7 +15,7 @@ const App = () => (
     mx-auto flex justify-center items-center "
     >
       <Switch>
-        <Route path="/login" element={<LoginForm />} />
+        <Route path="/" element={<LoginForm />} />
         <Route path="/game-mode" element={<GameMode />} />
         <Route path="/game-board" element={<GameBoard />} />
       </Switch>
