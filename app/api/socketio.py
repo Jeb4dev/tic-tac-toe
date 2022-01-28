@@ -11,7 +11,7 @@ from app.models.db import db
 This file contains all server sockets.
 """
 
-socketio = SocketIO(logger=True, cors_allowed_origins="*", async_mode="eventlet")
+socketio = SocketIO(logger=True, cors_allowed_origins="*", async_mode='eventlet')
 
 active_rooms = {}
 users = {}
