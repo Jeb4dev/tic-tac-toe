@@ -6,7 +6,7 @@ import Button from "./Button";
 
 // first page
 // login Form to get user credentials :login :signup
-const LoginForm = function ({ loginLabel, setLoginLabel }) {
+const LoginForm = function ({ loginLabel, setLoginLabel, Emit}) {
   const [signUpLabel, setSignUpLabel] = useState(false);
   const [fieldIsHidden, setFieldIsHidden] = useState(true);
 
@@ -50,6 +50,7 @@ const LoginForm = function ({ loginLabel, setLoginLabel }) {
           setLoginLabel={setLoginLabel}
           fieldIsHidden={fieldIsHidden}
           setFieldIsHidden={setFieldIsHidden}
+          onEmit={Emit}
         />
       </div>
     </div>

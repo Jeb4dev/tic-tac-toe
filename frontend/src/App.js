@@ -4,13 +4,25 @@ import {
   Route,
 } from "react-router-dom";
 import { useState } from "react";
+import io from "socket.io-client";
 import { GiTicTacToe } from "react-icons/gi";
 import LoginForm from "./components/LoginForm";
 import GameMode from "./components/GameMode";
 import GameBoard from "./components/GameBoard";
 
+let endPoint = "http://localhost:8000";
+
+let socket = io.connect(`${endPoint}`)
+
 const App = function () {
   const [loginLabel, setLoginLabel] = useState(true);
+  
+  function getApiAndEmit() {
+    console.log("Click");
+    socket.emit('recive_text', 'what is going on');
+  }
+
+  socket.on("cl_send_text", (txt) => {console.log(txt)})
 
   return (
     <Router>
@@ -32,6 +44,7 @@ const App = function () {
               <LoginForm
                 loginLabel={loginLabel}
                 setLoginLabel={setLoginLabel}
+                Emit={getApiAndEmit}
               />
             }
           />

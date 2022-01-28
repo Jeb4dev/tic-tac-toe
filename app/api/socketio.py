@@ -55,11 +55,18 @@ def handle_error(e):
 
 # When user connected
 @socketio.on('connect')
-@jwt_required()
+# @jwt_required()
 def on_connect():
-    user = get_current_user()
-    print("User connected!", user)
-    users[request.sid] = user.id
+    # user = get_current_user()
+    print("User connected!")
+    # users[request.sid] = user.id
+
+
+# get custom text and print it
+@socketio.on('recive_text')
+def recive_text(text):
+    print(text)
+    emit("cl_send_text", "heyy")
 
 
 # When user disconnects
