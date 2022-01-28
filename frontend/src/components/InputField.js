@@ -1,10 +1,12 @@
 const InputField = ({ placeholder, type }) => (
+  // input field component
+  // desiriable customization
   <input
     className="
       block 
       focus:outline-none focus:translate-x-5 
-      focus:border-green-500 
-      border-black border rounded 
+      focus:ring-green-500 
+      border rounded 
       w-5/6 my-5 
       px-1 py-1"
     type={type}
