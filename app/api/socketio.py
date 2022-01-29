@@ -48,7 +48,7 @@ def handle_statistics(user, data):
 
 # Error handling
 @socketio.on_error()
-@jwt_required()
+# @jwt_required()
 def handle_error(e):
     print(f"An error occurred: {e}")
 
@@ -90,7 +90,7 @@ def on_disconnect():
 
 # Create room
 @socketio.on('sv_create_race')
-@jwt_required()
+# @jwt_required()
 def create_race():
     user = get_current_user()
     user_id = user.id
@@ -121,7 +121,7 @@ def create_race():
 
 # Join room
 @socketio.on('sv_join_race')
-@jwt_required()
+# @jwt_required()
 def join_race(data):
     user = get_current_user()
 
@@ -139,7 +139,7 @@ def join_race(data):
 
 # Leave room
 @socketio.on('sv_leave_race')
-@jwt_required()
+# @jwt_required()
 def leave_race(data):
     user = get_current_user()
     user_id = user.id
@@ -166,7 +166,7 @@ def leave_race(data):
 
 # Get list of active rooms
 @socketio.on('sv_get_active_rooms')
-@jwt_required()
+# @jwt_required()
 def list_active_races():
     user = get_current_user()
 
@@ -177,7 +177,7 @@ def list_active_races():
 
 # Start race
 @socketio.on('sv_start_race')
-@jwt_required()
+# @jwt_required()
 def start_race():
     user = get_current_user()
     print("start")
@@ -192,7 +192,7 @@ def start_race():
 
 # Clients send server race progress, that value is redirected all clients in the same race
 @socketio.on('sv_get_move')
-@jwt_required()
+# @jwt_required()
 def get_progress(data):  # data should at least contain room name, user whose data it is and what is the progress level
     user = get_current_user()
     move = data["move"]
@@ -207,7 +207,7 @@ def get_progress(data):  # data should at least contain room name, user whose da
 
 # Get statistics when race is finished and save them to db, show user statistics
 @socketio.on('sv_get_race_statistics')
-@jwt_required()
+# @jwt_required()
 def get_race_statistics(data):
     # data should at least contain: room name, wpm, epm, ranking,
     # total participants, accuracy, race time, words title, errors
@@ -215,7 +215,7 @@ def get_race_statistics(data):
     user = get_current_user()
 
     # save statistics to db
-    handle_statistics(user, data)
+    # handle_statistics(user, data)
 
     # call event when statistics are updated
     # on this event client can show all statistics of recent race and updated statistics of all time

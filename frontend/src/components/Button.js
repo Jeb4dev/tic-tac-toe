@@ -16,7 +16,7 @@ const Button = function ({
   loginLabel,
   fieldIsHidden,
   setFieldIsHidden,
-  onEmit,
+  ApiRegister,
 })
 {
   return (
@@ -43,8 +43,8 @@ const Button = function ({
           setSignUpLabel(!signUpLabel);
           setFieldIsHidden(!fieldIsHidden);
         }
-        if (label === "Done") {
-          onEmit()
+        if (label === "sign up") {
+          ApiRegister()
         }
         if (label === "reset") {
           reset(grid, e);
