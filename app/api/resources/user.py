@@ -4,7 +4,8 @@ from flask_jwt_extended import jwt_required
 
 from app.api.schemas import ErrorResponse
 from app.api.schemas.user import UserEdit
-from app.models import User, db
+from app.models import db
+from app.models.users import User
 from app.api.jwt import get_current_user
 
 

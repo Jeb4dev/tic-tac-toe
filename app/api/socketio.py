@@ -4,8 +4,8 @@ from flask_jwt_extended import jwt_required
 from datetime import datetime, timezone
 
 from app.api.jwt import get_current_user
-from app.models import User
-from app.models.db import db
+from app.models.users import User
+from app.models import db
 
 """
 This file contains all server sockets.

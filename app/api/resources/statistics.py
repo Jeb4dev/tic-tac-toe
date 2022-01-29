@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
-from app.models import User
+from app.models.users import User
 
 
 class StatisticsResource(Resource):
