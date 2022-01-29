@@ -34,7 +34,7 @@ const App = function () {
 
     const response = await res.json()
     console.log(response)
-    console.log(response.data.access_token)
+    console.log(response.access_token)
   }
 
   return (

@@ -1,5 +1,4 @@
 from flask import Flask, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
@@ -8,8 +7,8 @@ from flask_jwt_extended import JWTManager
 
 from app.api.socketio import socketio
 from .settings import get_settings
+from app.models import db
 
-db = SQLAlchemy()
 login_manager = LoginManager()
 
 

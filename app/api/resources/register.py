@@ -23,6 +23,6 @@ class RegisterResource(Resource):
         # Create new user object by calling create function from User class
         user = User.create(username=body.username, password=body.password)
         print("User created")
-        # access_token, refresh_token = create_tokens_pair(user.username)
-        # set_refresh_token(refresh_token)
-        # return AccountResponse(access_token=access_token, user_id=user.id).dict(), 201
+        access_token, refresh_token = create_tokens_pair(user.username)
+        set_refresh_token(refresh_token)
+        return AccountResponse(access_token=access_token, user_id=user.id).dict(), 201
