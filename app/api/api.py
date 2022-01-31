@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api
-from .resources import UserResource, LoginResource, LogoutResource, RefreshResource, RegisterResource, \
+from app.api.resources import UserResource, LoginResource, LogoutResource, RefreshResource, RegisterResource, \
     StatisticsResource, AccountResource
 
 router = Blueprint("api", __name__)
