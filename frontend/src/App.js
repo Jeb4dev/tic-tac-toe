@@ -23,23 +23,23 @@ const App = function () {
   // }
 
   // socket.on("cl_send_text", (txt) => {console.log(txt)})
-  const Register = async () => {
-    const res = await fetch('http://127.0.0.1:8000/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ username: 'user', password: "passwd" }),
-    })
+  // const Register = async () => {
+  //   const res = await fetch('http://127.0.0.1:8000/api/auth/register', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ username: 'user', password: "passwd" }),
+  //   })
 
-    const response = await res.json()
-    console.log(response)
-    console.log(response.access_token)
-    localStorage.setItem('access_token', response.access_token);
-  }
+  //   const response = await res.json()
+  //   console.log(response)
+  //   console.log(response.access_token)
+  //   localStorage.setItem('access_token', response.access_token);
+  // }
 
-  const accessToken = localStorage.getItem('access_token');
-  console.log(accessToken)
+  // const accessToken = localStorage.getItem('access_token');
+  // console.log(accessToken)
 
   return (
     <Router>
@@ -61,7 +61,7 @@ const App = function () {
               <LoginForm
                 loginLabel={loginLabel}
                 setLoginLabel={setLoginLabel}
-                ApiRegister={Register}
+                // ApiRegister={Register}
               />
             }
           />
