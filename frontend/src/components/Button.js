@@ -1,5 +1,6 @@
 // Custom button component to use in entire app
 // allows for desired tweaking
+
 const Button = function ({
   label,
   width,
@@ -13,10 +14,11 @@ const Button = function ({
   setLoginLabel,
   loginLabel,
   fieldIsHidden,
-  setFieldIsHidden,
+  setFieldIsHidde
   id,
   type,
 }) {
+
   return (
     <button
       style={{
@@ -38,6 +40,7 @@ const Button = function ({
       // things to do when button is clicked
       // button label is used to target particular buttons
       onClick={(e) => {
+       
         if (label === "sign up" || label === "Done") {
           setLoginLabel(!loginLabel);
           setSignUpLabel(!signUpLabel);

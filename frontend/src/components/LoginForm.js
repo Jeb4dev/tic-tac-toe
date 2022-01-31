@@ -6,7 +6,7 @@ import Button from "./Button";
 
 // first page
 // login Form to get user credentials :login :signup
-const LoginForm = function ({ loginLabel, setLoginLabel }) {
+const LoginForm = function ({ loginLabel, setLoginLabel, ApiRegister}) {
   const [signUpLabel, setSignUpLabel] = useState(false);
   const [fieldIsHidden, setFieldIsHidden] = useState(true);
 
@@ -104,6 +104,7 @@ const LoginForm = function ({ loginLabel, setLoginLabel }) {
           fieldIsHidden={fieldIsHidden}
           setFieldIsHidden={setFieldIsHidden}
           color="rgb(31 41 55)"
+
         />
       </div>
     </form>

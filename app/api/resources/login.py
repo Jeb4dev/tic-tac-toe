@@ -1,7 +1,7 @@
 from flask_restful import Resource
 from flask_pydantic import validate
 
-from app.models import User
+from app.models.users import User
 from ..jwt import create_tokens_pair, set_refresh_token
 from ..schemas import ErrorResponse
 from ..schemas.auth import UserLogin, AccountResponse

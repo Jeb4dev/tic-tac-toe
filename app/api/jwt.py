@@ -2,7 +2,7 @@ from typing import Optional
 from flask import after_this_request
 from flask_jwt_extended import get_jwt_identity, create_access_token, create_refresh_token, set_refresh_cookies
 
-from app.models import User
+from app.models.users import User
 
 
 def get_current_user(identity: Optional[str] = None):

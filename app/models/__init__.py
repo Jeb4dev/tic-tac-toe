@@ -1,3 +1,3 @@
-from .db import db
-from .user import User
-from .statistics import Statistics
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
