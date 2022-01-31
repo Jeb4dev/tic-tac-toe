@@ -1,14 +1,31 @@
-import { useState } from "react";
 // This is the cell component of gameboard
 // 9 of this will give a full 3xe board
-const GameCell = function ({ getCellId }) {
+const GameCell = function ({
+  getCellId,
+  checkCellContent,
+  checkWins,
+  placeCellMarker,
+}) {
   // toggle marker
-  const [markerPlaced, setMarkerPlaced] = useState(false);
+  // const [marker, setMarker] = useState(true);
+  let CrossMark, OhMark, placeMarker;
+
+  CrossMark = "❌";
+  OhMark = "⭕";
 
   // function to place marker in a cell
-  const placeMarker = function (cell) {
-    // place either an x or o in the cell with a click
-    cell.target.textContent = markerPlaced ? " ❌" : " ⭕";
+  const placeX = (cell) => (cell.target.textContent = CrossMark);
+  const placeO = (cell) => (cell.target.textContent = OhMark);
+
+  let marker = true;
+  placeMarker = function (e) {
+    marker = placeCellMarker();
+    // console.log(marker);
+    if (marker) {
+      placeX(e);
+    } else {
+      placeO(e);
+    }
   };
 
   // each grid cell is made up of a button
@@ -19,16 +36,15 @@ const GameCell = function ({ getCellId }) {
   bg-gray-900
     text-center
     align-top
-    focus:outline-none hover:bg-red-400
+    focus:outline-none hover:bg-gray-800
     "
       // things to do when the button get's clicked
+
       onClick={(e) => {
-        // place marker
         placeMarker(e);
-        // toggle marker
-        setMarkerPlaced(!markerPlaced);
-        // check cell value
+        checkCellContent(e);
         getCellId(e);
+        checkWins(getCellId(e), marker);
       }}
     >
       {}

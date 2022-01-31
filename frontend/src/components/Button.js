@@ -9,16 +9,16 @@ const Button = function ({
   margin,
   color,
   reset,
-  grid,
   setSignUpLabel,
   signUpLabel,
   setLoginLabel,
   loginLabel,
   fieldIsHidden,
-  setFieldIsHidden,
-  ApiRegister,
-})
-{
+  setFieldIsHidde
+  id,
+  type,
+}) {
+
   return (
     <button
       style={{
@@ -33,7 +33,10 @@ const Button = function ({
       text-xl 
       rounded border-black
       active:translate-x-1
-      px-2 py-2 mx-2 my-5 "
+      px-2 py-2 mx-2 my-5
+       "
+      id={id}
+      type={type}
       // things to do when button is clicked
       // button label is used to target particular buttons
       onClick={(e) => {
@@ -43,11 +46,13 @@ const Button = function ({
           setSignUpLabel(!signUpLabel);
           setFieldIsHidden(!fieldIsHidden);
         }
-        if (label === "sign up") {
-          ApiRegister()
-        }
+
         if (label === "reset") {
-          reset(grid, e);
+          reset();
+          window.location.reload();
+          e.prevenDefault();
+
+          // window.location.reload();
         }
       }}
     >
