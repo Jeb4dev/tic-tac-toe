@@ -1,4 +1,4 @@
-const InputField = ({ placeholder, type }) => (
+const InputField = ({ placeholder, type, id }) => (
   // input field component
   // desiriable customization
   <input
@@ -11,6 +11,7 @@ const InputField = ({ placeholder, type }) => (
       px-1 py-1"
     type={type}
     placeholder={placeholder}
+    id={id}
   />
 );
 

@@ -9,14 +9,114 @@ const GameBoard = function () {
   // Function to uniquely identify cell in grid
   const getCellId = function (cell) {
     const CellId = Number(cell.target.closest("div").getAttribute("data-id"));
-    console.log(CellId);
     return CellId;
   };
 
+  // function to check type of marker in cell x || O
+  const checkCellContent = function (cell) {
+    const marker = cell.target.textContent;
+    if (marker === "❌" || " ⭕") {
+      return `marker: ${marker}`;
+    }
+  };
+
+  let marker = true;
+  const placeCellMarker = function () {
+    marker = !marker;
+    return marker;
+  };
+
+  // function to determine a win
+  // 2D array that contains all non empty values of the game
+  let cellid = [];
+  let winningPositions = [
+    // horizontal wins
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    // vertical wins
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    // diagonal
+    [1, 5, 9],
+    [3, 5, 7],
+  ];
+  const checkWins = function (cellID, marker) {
+    const id = cellID;
+    let xValues = [];
+    let oValues = [];
+    let Currentmarker = marker;
+
+    if (Currentmarker) {
+      Currentmarker = "❌";
+    } else {
+      Currentmarker = "⭕";
+    }
+    const reward = function (winner) {
+      let cells = [];
+      const board = document.getElementById("game-board");
+      for (let i = 0; i < 9; i++) {
+        cells.push(board.childNodes[i].firstChild);
+      }
+      cells.forEach((cell, i) => {
+        cell.textContent = ``;
+        cell.style.backgroundColor = "white";
+        if (i === 4) {
+          cell.style.backgroundColor = "green";
+          cell.style.color = "rgb(17 24 39)";
+          cell.textContent = `winner: ${winner}`;
+        }
+      });
+    };
+
+    // make array containing id and value of id
+    let input = [id, Currentmarker];
+
+    // Check if the array has array with current id
+    // if it has, remove that value from array
+    // this prevents duplicates
+    cellid.forEach((e, i) => {
+      if (e[0] === id) {
+        cellid.splice(i);
+      }
+    });
+
+    // push new value to array
+    cellid.push(input);
+
+    // print array
+    cellid.forEach((e) => {
+      if (e[1] === "❌") {
+        xValues.push(e[0]);
+      } else if (e[1] === "⭕") {
+        oValues.push(e[0]);
+      }
+    });
+
+    winningPositions.forEach((arr) => {
+      if (xValues.includes(arr[0]))
+        if (xValues.includes(arr[1]))
+          if (xValues.includes(arr[2])) {
+            reward("❌");
+          }
+
+      if (oValues.includes(arr[0]))
+        if (oValues.includes(arr[1]))
+          if (oValues.includes(arr[2])) {
+            reward("⭕");
+          }
+    });
+  };
+
   // array to hold each cell in the grid
-  // purposely to auto generate rather than stamp 9 cells
   const gameboard = Array.from({ length: 9 }, () => (
-    <GameCell getCellId={getCellId} />
+    <GameCell
+      getCellId={getCellId}
+      checkCellContent={checkCellContent}
+      checkWins={checkWins}
+      placeCellMarker={placeCellMarker}
+    />
   ));
 
   const grid = gameboard.map(function (cell, index) {
@@ -28,11 +128,20 @@ const GameBoard = function () {
   });
 
   // function to clear || reset the entire game
-  const reset = function (grid, cell) {
-    grid.forEach((element) => {
-      console.log(element.type);
+  const reset = function () {
+    cellid = [];
+    let cells = [];
+    const board = document.getElementById("game-board");
+    for (let i = 0; i < 9; i++) {
+      cells.push(board.childNodes[i].firstChild);
+    }
+    cells.forEach((cell, i) => {
+      cell.textContent = "";
+      cell.style.backgroundColor = "rgb(17 24 39)";
+      if (i === 4) cell.style.backgroundColor = "rgb(17 24 39)";
     });
   };
+
   return (
     <div>
       <div>
@@ -50,6 +159,7 @@ const GameBoard = function () {
         className="
       grid grid-cols-3 grid-rows-3
       justify-center items-start "
+        id="game-board"
       >
         {/* Generate the 3x3 grid  */}
         {grid}
