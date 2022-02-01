@@ -1,11 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Button from "./Button";
 import GameCell from "./GameCell";
 import ScoreBoard from "./ScoreBoard";
 
 // 3x3 grid tic tac toe gameBoard
 const GameBoard = function () {
+  function selectCells() {
+    let cells = [];
+    const board = document.getElementById("game-board");
+    for (let i = 0; i < 9; i++) {
+      cells.push(board.childNodes[i].firstChild);
+    }
+    return cells;
+  }
   // Function to uniquely identify cell in grid
   const getCellId = function (cell) {
     const CellId = Number(cell.target.closest("div").getAttribute("data-id"));
@@ -53,22 +62,6 @@ const GameBoard = function () {
     } else {
       Currentmarker = "⭕";
     }
-    const reward = function (winner) {
-      let cells = [];
-      const board = document.getElementById("game-board");
-      for (let i = 0; i < 9; i++) {
-        cells.push(board.childNodes[i].firstChild);
-      }
-      cells.forEach((cell, i) => {
-        cell.textContent = ``;
-        cell.style.backgroundColor = "white";
-        if (i === 4) {
-          cell.style.backgroundColor = "green";
-          cell.style.color = "rgb(17 24 39)";
-          cell.textContent = `winner: ${winner}`;
-        }
-      });
-    };
 
     // make array containing id and value of id
     let input = [id, Currentmarker];
@@ -95,6 +88,23 @@ const GameBoard = function () {
     });
 
     winningPositions.forEach((arr) => {
+      const reward = function (winner) {
+        const cells = selectCells();
+        cells.forEach((cell, i) => {
+          if (arr.includes(i + 1)) {
+            const displayWinner = document.getElementById("winner-display");
+            cell.style.opacity = "1";
+            cell.style.backgroundColor = "rgb(31 41 55)";
+            cell.textContent = `${winner}`;
+            displayWinner.textContent = `${winner} WINS!!! 🥳 🎉 `;
+          } else {
+            cell.style.opacity = "0";
+            cell.textContent = ``;
+            cell.className = "hover:cursor-none";
+          }
+        });
+      };
+
       if (xValues.includes(arr[0]))
         if (xValues.includes(arr[1]))
           if (xValues.includes(arr[2])) {
@@ -130,17 +140,24 @@ const GameBoard = function () {
   // function to clear || reset the entire game
   const reset = function () {
     cellid = [];
-    let cells = [];
-    const board = document.getElementById("game-board");
-    for (let i = 0; i < 9; i++) {
-      cells.push(board.childNodes[i].firstChild);
-    }
-    cells.forEach((cell, i) => {
+    const cells = selectCells();
+    cells.forEach((cell) => {
       cell.textContent = "";
-      cell.style.backgroundColor = "rgb(17 24 39)";
-      if (i === 4) cell.style.backgroundColor = "rgb(17 24 39)";
+      cell.style.opacity = "100";
     });
   };
+
+  useEffect(() => {
+    let score = 0;
+    const cells = selectCells();
+    cells.forEach(function (cell) {
+      cell.addEventListener("click", incremetScore);
+      function incremetScore(e) {
+        let scores = document.getElementById("player1-score");
+        return (scores.textContent = score++);
+      }
+    });
+  });
 
   return (
     <div>

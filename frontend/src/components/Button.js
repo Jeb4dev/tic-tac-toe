@@ -40,7 +40,6 @@ const Button = function ({
       // things to do when button is clicked
       // button label is used to target particular buttons
       onClick={(e) => {
-       
         if (label === "sign up" || label === "sign in") {
           setLoginLabel(!loginLabel);
           setSignUpLabel(!signUpLabel);
@@ -50,7 +49,7 @@ const Button = function ({
         // If button with id submit is pressed
         // Submit form == login or register
         if (id === "submit") {
-          HandleFromSubmit()
+          HandleFromSubmit();
         }
 
         if (label === "reset") {
