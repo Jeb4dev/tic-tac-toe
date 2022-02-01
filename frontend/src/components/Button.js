@@ -19,7 +19,6 @@ const Button = function ({
   type,
   HandleFromSubmit,
 }) {
-
   return (
     <button
       style={{
