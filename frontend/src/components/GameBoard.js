@@ -98,9 +98,12 @@ const GameBoard = function () {
             cell.textContent = `${winner}`;
             displayWinner.textContent = `${winner} WINS!!! 🥳 🎉 `;
           } else {
-            cell.style.opacity = "0";
-            cell.textContent = ``;
-            cell.className = "hover:cursor-none";
+            // cell.style.opacity = "0";
+            cell.style.backgroundColor = "rgb(17, 24, 39)";
+
+            // remove click event
+            // console.log(cell.parentElement);
+            // cell.removeEventListener("click", placeCellMarker, true);
           }
         });
       };
@@ -152,9 +155,9 @@ const GameBoard = function () {
     const cells = selectCells();
     cells.forEach(function (cell) {
       cell.addEventListener("click", incremetScore);
-      function incremetScore(e) {
+      function incremetScore() {
         let scores = document.getElementById("player1-score");
-        return (scores.textContent = score++);
+        return (scores.textContent = score += 1);
       }
     });
   });
