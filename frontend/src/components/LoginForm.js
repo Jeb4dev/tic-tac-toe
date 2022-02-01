@@ -6,66 +6,127 @@ import Button from "./Button";
 
 // first page
 // login Form to get user credentials :login :signup
-const LoginForm = function ({ loginLabel, setLoginLabel, ApiRegister}) {
+const LoginForm = function ({ loginLabel, setLoginLabel}) {
   const [signUpLabel, setSignUpLabel] = useState(false);
-  const [fieldIsHidden, setFieldIsHidden] = useState(true);
+  const [fieldIsHidden, setFieldIsHidden] = useState(true)
 
-  useEffect(function () {
-    const form = document.getElementById("form");
-    const submitButton = document.getElementById("submit");
+  // Define if user is logging in or registering a new account
+  // When user clicks submit buttoo
+  function HandleFromSubmit () {
+    // If user is in login form
+    if (loginLabel) {
+      // console.log(loginLabel, "Login");   
+      LoginUser();
 
-    form.addEventListener("input", getUserData);
-    submitButton.addEventListener("click", logUserIn);
+      return "";
+    }
+    // If user is not in login form - should be *register* form then
+    else {
+      // console.log(loginLabel, "Register"); 
+      RegisterUser();
 
-    // async function logUserIn(e) {
-    //   // e.preventDefault();
-    //   const req = await fetch("http://localhost:5000/users", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(getUserData()),
-    //   });
-    // }
+      return "";
+    }
+  }
 
-    async function logUserIn(e) {
-      // e.preventDefault();
+
+  // Send API call - Register new account
+  async function RegisterUser() {
+
+    // get credentials
+    let credentials = getUserRegisterData();
+
+    // If credential recived send api call
+    if (credentials) {
+      console.log("Sending Registering API call...");
       const req = await fetch("http://127.0.0.1:8000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: getUserData(),
-      });
+        body: credentials,
+        });
       const response = await req.json();
-      console.log(response);
-      console.log(response.access_token);
-      localStorage.setItem("access_token", response.access_token);
+
+      // If API responses 
+      if (response) {
+        
+        // if response is error, log it
+        if (response.error) {
+          console.log(response.error);
+        }
+        
+        // Save access token, if recived
+        if (response.access_token) {
+          localStorage.setItem("access_token", response.access_token);
+        }
+      }
     }
 
-    //   function getUserData() {
-    //     const userName = document.getElementById("username").value;
-    //     const password = document.getElementById("password").value;
-    //     const user = {
-    //       username: userName,
-    //       userPassword: password,
-    //     };
-    //     return user;
-    //   }
-    // });
-
-    function getUserData() {
-      const userName = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      return JSON.stringify({ username: userName, password: password });
+    // Credentias were not recived - (passwords didn't match)
+    else {
+      console.log("Passwords doesn't match.");
     }
-  });
+  };
+
+  // Send API call - Login new account
+  async function LoginUser() {
+
+    // get credentials
+    let credentials = getUserLoginData()
+
+    // If credential recived send api call
+    if (credentials) {
+      console.log("Sending Login API call...");
+      const req = await fetch("http://127.0.0.1:8000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: credentials,
+        });
+      const response = await req.json();
+
+      // If API responses 
+      if (response) {
+
+        // if response is error, log it
+        if (response.error) {
+          console.log(response.error);
+        }
+        
+        // Save access token, if recived
+        if (response.access_token) {
+          localStorage.setItem("access_token", response.access_token);
+        }
+      }
+    }
+
+    // Credentias were not recived
+    else {
+      console.log("Credentias not received");
+    }
+  };
+
+  // Get Register credentials
+  function getUserRegisterData() {
+    const userName = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const password2 = document.getElementById("passwd-confirm").value;
+    if (password !== password2) {return false}
+    return JSON.stringify({ username: userName, password: password });
+  };
+  
+  // Get Login credentials
+  function getUserLoginData() {
+    const userName = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    return JSON.stringify({ username: userName, password: password });
+  };
 
   return (
     <form
-      className="
-    shadow-gray-500 shadow-2xl
-      px-5 py-5"
+      className="shadow-gray-500 shadow-2xl px-5 py-5"
       id="form"
     >
       <label>{loginLabel ? "login" : "sign up"}</label>
@@ -75,7 +136,7 @@ const LoginForm = function ({ loginLabel, setLoginLabel, ApiRegister}) {
       {/* additional field for signup  */}
       {/* only show when signup clicked */}
       <div className={fieldIsHidden ? "hidden" : ""}>
-        <InputField type="password" placeholder="confirm password" />
+        <InputField id="passwd-confirm" type="password" placeholder="confirm password" />
       </div>
 
       {/* Button to navigate to gamemode screen */}
@@ -92,10 +153,11 @@ const LoginForm = function ({ loginLabel, setLoginLabel, ApiRegister}) {
             id="submit"
             type="submit"
             color="rgb(31 41 55)"
+            HandleFromSubmit={HandleFromSubmit}
           />
         </Link>
         <Button
-          label={signUpLabel ? "Done" : "sign up"}
+          label={signUpLabel ? "sign in" : "sign up"}
           bgcolor="orange"
           signUpLabel={signUpLabel}
           setSignUpLabel={setSignUpLabel}
@@ -104,6 +166,7 @@ const LoginForm = function ({ loginLabel, setLoginLabel, ApiRegister}) {
           fieldIsHidden={fieldIsHidden}
           setFieldIsHidden={setFieldIsHidden}
           color="rgb(31 41 55)"
+          type='button'
 
         />
       </div>

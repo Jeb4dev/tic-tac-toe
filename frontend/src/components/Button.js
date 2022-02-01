@@ -17,6 +17,7 @@ const Button = function ({
   setFieldIsHidden,
   id,
   type,
+  HandleFromSubmit,
 }) {
   return (
     <button
@@ -39,10 +40,17 @@ const Button = function ({
       // things to do when button is clicked
       // button label is used to target particular buttons
       onClick={(e) => {
-        if (label === "sign up" || label === "Done") {
+       
+        if (label === "sign up" || label === "sign in") {
           setLoginLabel(!loginLabel);
           setSignUpLabel(!signUpLabel);
           setFieldIsHidden(!fieldIsHidden);
+        }
+
+        // If button with id submit is pressed
+        // Submit form == login or register
+        if (id === "submit") {
+          HandleFromSubmit()
         }
 
         if (label === "reset") {
