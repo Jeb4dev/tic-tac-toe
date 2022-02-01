@@ -14,11 +14,10 @@ const Button = function ({
   setLoginLabel,
   loginLabel,
   fieldIsHidden,
-  setFieldIsHidde
+  setFieldIsHidden,
   id,
   type,
 }) {
-
   return (
     <button
       style={{
@@ -40,7 +39,6 @@ const Button = function ({
       // things to do when button is clicked
       // button label is used to target particular buttons
       onClick={(e) => {
-       
         if (label === "sign up" || label === "Done") {
           setLoginLabel(!loginLabel);
           setSignUpLabel(!signUpLabel);
